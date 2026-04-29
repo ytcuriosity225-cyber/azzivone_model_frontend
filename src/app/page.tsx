@@ -22,6 +22,7 @@ export default function Home() {
   const [scanComplete, setScanComplete] = useState(false);
   const [recommendedProducts, setRecommendedProducts] = useState<Product[]>([]);
   const [detectedConcern, setDetectedConcern] = useState<string | null>(null);
+  const [isSleepMode, setIsSleepMode] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -40,6 +41,11 @@ export default function Home() {
       setIsScanning(true);
       setDetectedConcern(null);
       setRecommendedProducts([]);
+      setIsSleepMode(false);
+
+      const sleepTimer = setTimeout(() => {
+        setIsSleepMode(true);
+      }, 6000);
 
       try {
         const formData = new FormData();
@@ -65,6 +71,7 @@ export default function Home() {
         console.error("AI Analysis failed:", error);
         setDetectedConcern("Analysis service is currently unavailable. Please try again.");
       } finally {
+        clearTimeout(sleepTimer);
         setIsScanning(false);
         setScanComplete(true);
       }
@@ -82,6 +89,7 @@ export default function Home() {
     setScanComplete(false);
     setRecommendedProducts([]);
     setDetectedConcern(null);
+    setIsSleepMode(false);
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
@@ -215,7 +223,9 @@ export default function Home() {
                       <div className="absolute top-0 w-full h-32 bg-gradient-to-b from-azzivone-gold/40 to-transparent animate-scan shadow-[0_4px_30px_rgba(212,175,55,0.5)] border-b-2 border-azzivone-gold"></div>
                       <div className="absolute top-4 left-4 bg-black/60 backdrop-blur px-4 py-2 rounded-full flex items-center shadow-xl">
                         <div className="w-4 h-4 mr-3 animate-spin border-2 border-azzivone-gold border-t-transparent rounded-full flex-shrink-0"></div>
-                        <span className="text-white text-xs font-semibold tracking-wider">Azzivone AI is Analyzing your skin... This could take up to 30s</span>
+                        <span className="text-white text-xs font-semibold tracking-wider">
+                          {isSleepMode ? "Expert AI is waking up... Please wait a few seconds." : "Azzivone Clinical Scanner"}
+                        </span>
                       </div>
                     </>
                   )}
@@ -234,9 +244,9 @@ export default function Home() {
               {scanComplete && (
                 <div className="animate-slide-up mt-4 transition-all duration-700 ease-in-out transform translate-y-0 opacity-100">
                   {detectedConcern && (
-                    <div className="mb-6 text-center">
-                      <span className="inline-block px-4 py-1.5 rounded-full bg-azzivone-gold/10 text-azzivone-gold text-sm font-bold uppercase tracking-widest mb-2 border border-azzivone-gold/20 shadow-sm">Analysis Result</span>
-                      <h4 className="text-xl font-bold text-azzivone-green capitalize">{detectedConcern}</h4>
+                    <div className="mb-8 text-center">
+                      <span className="inline-block px-4 py-1.5 rounded-full bg-azzivone-gold/10 text-azzivone-gold text-sm font-bold uppercase tracking-widest mb-3 border border-azzivone-gold/20 shadow-sm">Analysis Result</span>
+                      <h4 className="text-3xl md:text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-azzivone-green to-azzivone-gold capitalize drop-shadow-sm leading-tight px-4">{detectedConcern}</h4>
                     </div>
                   )}
                   
