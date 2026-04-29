@@ -21,10 +21,13 @@ export default function Home() {
   const [isScanning, setIsScanning] = useState(false);
   const [scanComplete, setScanComplete] = useState(false);
   const [recommendedProducts, setRecommendedProducts] = useState<Product[]>([]);
+  const [detectedConcern, setDetectedConcern] = useState<string | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    setIsMounted(true);
     fetch("/products.json")
       .then((res) => res.json())
       .then((data) => setProducts(data));
@@ -37,33 +40,36 @@ export default function Home() {
       setSelectedImage(url);
       setScanComplete(false);
       setIsScanning(true);
+      setDetectedConcern(null);
+      setRecommendedProducts([]);
 
-      // --- Fast API Integration Example ---
-      // try {
-      //   const formData = new FormData();
-      //   formData.append('file', file);
-      //   const response = await fetch('http://localhost:8000/analyze', {
-      //     method: 'POST',
-      //     body: formData,
-      //   });
-      //   const data = await response.json();
-      //   // Assume data returns suggested product IDs
-      //   const recommendations = products.filter(p => data.suggested_ids.includes(p.id));
-      //   setRecommendedProducts(recommendations);
-      // } catch (error) {
-      //   console.error("AI Analysis failed:", error);
-      // } finally {
-      //   setIsScanning(false);
-      //   setScanComplete(true);
-      // }
+      try {
+        const formData = new FormData();
+        formData.append('file', file);
+        const response = await fetch('https://azzivone-api.onrender.com/predict', {
+          method: 'POST',
+          body: formData,
+        });
+        const data = await response.json();
+        
+        if (data.detected_concern) {
+          setDetectedConcern(data.detected_concern);
+        } else {
+          setDetectedConcern("System successfully analyzed your skin.");
+        }
 
-      // Simulate AI analysis delay for demo purposes
-      setTimeout(() => {
+        if (data.recommended_products && Array.isArray(data.recommended_products)) {
+          setRecommendedProducts(data.recommended_products);
+        } else {
+          setRecommendedProducts([]);
+        }
+      } catch (error) {
+        console.error("AI Analysis failed:", error);
+        setDetectedConcern("Analysis service is currently unavailable. Please try again.");
+      } finally {
         setIsScanning(false);
         setScanComplete(true);
-        // Mock recommendation: just pick first 3 products for display
-        setRecommendedProducts(products.slice(0, 3));
-      }, 3000);
+      }
     }
   };
 
@@ -77,6 +83,7 @@ export default function Home() {
     setIsScanning(false);
     setScanComplete(false);
     setRecommendedProducts([]);
+    setDetectedConcern(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
@@ -90,7 +97,7 @@ export default function Home() {
           AZZIVONE
         </div>
         <div className="space-x-8 text-sm font-medium text-gray-600">
-          <a href="#hero" className="hover:text-azzivone-gold transition-colors block md:inline">HOME</a>
+          <button onClick={handleAiCardClick} className="hover:text-azzivone-gold transition-colors block md:inline uppercase">ASK AI</button>
           <a href="#marketplace" className="hover:text-azzivone-gold transition-colors block md:inline">MARKETPLACE</a>
         </div>
       </nav>
@@ -208,9 +215,9 @@ export default function Home() {
                     <>
                       <div className="absolute inset-0 bg-azzivone-green/20 mix-blend-overlay"></div>
                       <div className="absolute top-0 w-full h-32 bg-gradient-to-b from-azzivone-gold/40 to-transparent animate-scan shadow-[0_4px_30px_rgba(212,175,55,0.5)] border-b-2 border-azzivone-gold"></div>
-                      <div className="absolute top-4 left-4 bg-black/60 backdrop-blur px-3 py-1.5 rounded-full flex items-center">
-                        <div className="w-2 h-2 rounded-full bg-azzivone-gold animate-pulse mr-2"></div>
-                        <span className="text-white text-xs font-semibold tracking-wider">ANALYZING DERMIS...</span>
+                      <div className="absolute top-4 left-4 bg-black/60 backdrop-blur px-4 py-2 rounded-full flex items-center shadow-xl">
+                        <div className="w-4 h-4 mr-3 animate-spin border-2 border-azzivone-gold border-t-transparent rounded-full flex-shrink-0"></div>
+                        <span className="text-white text-xs font-semibold tracking-wider">Azzivone AI is Analyzing your skin... This could take up to 30s</span>
                       </div>
                     </>
                   )}
@@ -227,22 +234,39 @@ export default function Home() {
               )}
 
               {scanComplete && (
-                <div className="animate-slide-up mt-4">
-                  <h4 className="text-xl font-bold text-azzivone-green mb-6 text-center">Recommended Protocol</h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    {recommendedProducts.map((product) => (
-                      <div key={`rec-${product.id}`} className="bg-white border text-center p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-                        <div className="relative h-24 w-full mb-3">
-                          <Image src={product.imageUrl} alt={product.name} fill className="object-contain" />
-                        </div>
-                        <p className="text-[10px] font-bold text-azzivone-gold uppercase mb-1">{product.brand}</p>
-                        <h5 className="text-xs font-bold text-gray-900 line-clamp-2">{product.name}</h5>
+                <div className="animate-slide-up mt-4 transition-all duration-700 ease-in-out transform translate-y-0 opacity-100">
+                  {detectedConcern && (
+                    <div className="mb-6 text-center">
+                      <span className="inline-block px-4 py-1.5 rounded-full bg-azzivone-gold/10 text-azzivone-gold text-sm font-bold uppercase tracking-widest mb-2 border border-azzivone-gold/20 shadow-sm">Analysis Result</span>
+                      <h4 className="text-xl font-bold text-azzivone-green capitalize">{detectedConcern}</h4>
+                    </div>
+                  )}
+                  
+                  {recommendedProducts.length > 0 && (
+                    <>
+                      <h4 className="text-lg font-semibold text-gray-800 mb-4 text-center border-b border-gray-100 pb-2">Recommended Protocol</h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                        {recommendedProducts.map((product, idx) => (
+                          <div key={`rec-${product.id || idx}`} className="bg-white border border-gray-100 p-5 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group">
+                            <div className="relative h-32 w-full mb-4 bg-gray-50 rounded-xl flex items-center justify-center p-2 group-hover:scale-105 transition-transform duration-500">
+                              <Image src={product.imageUrl} alt={product.name} fill className="object-contain drop-shadow-md" />
+                            </div>
+                            <div className="flex-grow flex flex-col text-center">
+                              <p className="text-[10px] font-bold text-azzivone-gold uppercase mb-1 tracking-wider">{product.brand}</p>
+                              <h5 className="text-sm font-bold text-gray-900 line-clamp-2 mb-2 leading-tight">{product.name}</h5>
+                              <div className="mt-auto pt-3 border-t border-gray-50">
+                                <span className="font-bold text-azzivone-green text-sm">Rs. {product.price?.toLocaleString()}</span>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                  <div className="mt-8 text-center">
-                    <button onClick={closeModal} className="px-8 py-3 bg-azzivone-green text-white font-medium rounded-full hover:bg-[#003018] transition-colors shadow-lg shadow-azzivone-green/30">
-                      View Protocol Details
+                    </>
+                  )}
+                  
+                  <div className="mt-8 text-center pt-2">
+                    <button onClick={closeModal} className="px-8 py-3 bg-azzivone-green text-white font-medium rounded-full hover:bg-opacity-90 transition-all duration-300 shadow-md shadow-azzivone-green/30 transform hover:-translate-y-1">
+                      Done
                     </button>
                   </div>
                 </div>
