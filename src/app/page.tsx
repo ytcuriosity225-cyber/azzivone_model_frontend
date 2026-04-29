@@ -22,12 +22,10 @@ export default function Home() {
   const [scanComplete, setScanComplete] = useState(false);
   const [recommendedProducts, setRecommendedProducts] = useState<Product[]>([]);
   const [detectedConcern, setDetectedConcern] = useState<string | null>(null);
-  const [isMounted, setIsMounted] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    setIsMounted(true);
     fetch("/products.json")
       .then((res) => res.json())
       .then((data) => setProducts(data));
