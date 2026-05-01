@@ -142,121 +142,162 @@ export default function ChatModal({ onClose }: { onClose?: () => void }) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 10 }}
-        className="glass-card p-6 w-full max-w-2xl mx-4"
+        className="glass-container p-8 w-full max-w-2xl mx-4 rounded-3xl"
       >
-        <div className="flex items-center justify-between">
-          <h3 className="text-2xl font-semibold">Analyze Skin</h3>
-          <div className="flex items-center gap-2">
-            <button
-              className="text-sm text-gray-600 hover:text-gray-800"
-              onClick={() => { setOpen(false); onClose?.(); }}
-            >
-              Close
-            </button>
-          </div>
+        <div className="flex items-center justify-between border-b border-white/10 pb-4">
+          <h3 className="text-2xl font-bold font-montserrat text-white tracking-wide">AI Skin Analysis</h3>
+          <button
+            className="text-blue-300 hover:text-white transition-colors"
+            onClick={() => { setOpen(false); onClose?.(); }}
+          >
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         </div>
 
         {!imageFile && !report && (
-          <div className="mt-6">
-            <p className="text-sm text-gray-700">Start by uploading a clear photo of your face.</p>
-            <div className="mt-4 flex items-center gap-4">
+          <div className="mt-8">
+            <p className="text-blue-100/80 mb-6">Start by uploading a clear photo of your face for our AI to analyze.</p>
+            <div className="flex flex-col items-center justify-center border-2 border-dashed border-white/10 rounded-2xl p-10 hover:border-electric-blue/40 transition-colors group cursor-pointer" onClick={() => fileRef.current?.click()}>
               <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={(e) => {
                 const f = e.target.files?.[0] || null;
                 if (f) setImageFile(f);
               }} />
-              <button className="glassy-pill" onClick={() => fileRef.current?.click()}>Upload Photo</button>
-              <span className="text-sm text-gray-500">or drag & drop (coming soon)</span>
+              <div className="w-16 h-16 rounded-full bg-electric-blue/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <svg className="w-8 h-8 text-electric-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <button className="px-6 py-2 bg-electric-blue/20 text-white font-semibold rounded-full border border-electric-blue/30 transition-all">Upload Photo</button>
             </div>
           </div>
         )}
 
         {imageFile && !report && (
-          <div className="mt-6">
-            <div className="flex gap-6 items-start">
-              <img src={URL.createObjectURL(imageFile)} alt="preview" className="w-28 h-28 object-cover rounded-md" />
-              <div className="flex-1">
-                <p className="text-sm text-gray-700">We will ask a few quick questions to personalize the analysis.</p>
-                <div className="mt-4">
-                  <div className="mb-3 text-gray-600">{QUESTIONS[step].q}</div>
-                  <div className="flex flex-wrap gap-3">
-                    {QUESTIONS[step].options.map((opt) => (
-                      <button key={opt} onClick={() => handlePick(opt)} className="glassy-pill">{opt}</button>
-                    ))}
-                  </div>
+          <div className="mt-8">
+            <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
+              <div className="relative w-32 h-32">
+                <img src={URL.createObjectURL(imageFile)} alt="preview" className="w-full h-full object-cover rounded-2xl border-2 border-electric-blue/30" />
+                <div className="absolute -bottom-2 -right-2 bg-electric-blue p-1 rounded-full border-2 border-azzivone-navy">
+                  <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                  </svg>
                 </div>
-                <div className="mt-4 text-sm text-gray-500">Question {step + 1} of {QUESTIONS.length}</div>
+              </div>
+              <div className="flex-1 w-full">
+                <p className="text-blue-100 uppercase text-xs font-bold tracking-widest mb-4">Step {step + 1} of {QUESTIONS.length}</p>
+                <div className="mb-6 text-xl font-bold text-white">{QUESTIONS[step].q}</div>
+                <div className="grid grid-cols-2 gap-3">
+                  {QUESTIONS[step].options.map((opt) => (
+                    <button key={opt} onClick={() => handlePick(opt)} className="px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white hover:bg-electric-blue/20 hover:border-electric-blue/40 transition-all text-sm font-medium">{opt}</button>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         )}
 
         {analyzing && (
-          <div className="mt-6 flex items-center gap-4">
-            <div className="w-12 h-12 rounded-full border-4 border-gray-200 analyzing-spinner animate-spin"></div>
-            <div>
-              <div className="text-lg font-medium">Analyzing...</div>
-              <div className="text-sm text-gray-500">Our AI is preparing a detailed skin report.</div>
+          <div className="mt-12 flex flex-col items-center justify-center gap-6">
+            <div className="relative">
+              <div className="w-20 h-20 rounded-full border-t-2 border-electric-blue animate-spin"></div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                 <div className="w-12 h-12 rounded-full bg-electric-blue/20 animate-pulse"></div>
+              </div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-white mb-2">Analyzing Skin Data</div>
+              <div className="text-blue-200/60">Our medical-grade AI is processing your specific concerns...</div>
             </div>
           </div>
         )}
 
         {report && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-6">
-            <div className="bg-white/60 glass-card p-4">
-              <h4 className="text-lg font-semibold">Your Skin Profile</h4>
-              <div className="text-sm text-gray-700 mt-2">Skin Type: {report.profile?.skinType || 'Unknown'}</div>
-              <div className="text-sm text-gray-700">Sun Exposure: {report.profile?.exposure || 'Unknown'}</div>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-6 max-h-[70vh] overflow-y-auto pr-2 custom-scrollbar">
+            <div className="space-y-8">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-white/5 p-4 rounded-2xl border border-white/10">
+                   <div className="text-xs text-blue-300 font-bold uppercase mb-1">Skin Type</div>
+                   <div className="text-white font-bold">{report.profile?.skinType || 'Unknown'}</div>
+                </div>
+                <div className="bg-white/5 p-4 rounded-2xl border border-white/10">
+                   <div className="text-xs text-blue-300 font-bold uppercase mb-1">Exposure</div>
+                   <div className="text-white font-bold">{report.profile?.exposure || 'Unknown'}</div>
+                </div>
+              </div>
 
-              <h4 className="mt-4 text-lg font-semibold">Identified Concerns</h4>
-              <ul className="list-disc list-inside text-sm text-gray-700 mt-2">
-                {(report.concerns || []).map((c: string, i: number) => <li key={i}>{c}</li>)}
-              </ul>
+              <div>
+                <h4 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
+                  <span className="w-2 h-2 bg-electric-blue rounded-full"></span>
+                  Identified Concerns
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {(report.concerns || []).map((c: string, i: number) => (
+                    <span key={i} className="px-3 py-1 bg-electric-blue/10 border border-electric-blue/20 rounded-full text-blue-100 text-sm">{c}</span>
+                  ))}
+                </div>
+              </div>
 
-              <h4 className="mt-4 text-lg font-semibold">Expert Advice</h4>
-              <p className="text-sm text-gray-700 mt-2">{report.advice}</p>
+              <div>
+                <h4 className="text-lg font-bold text-white mb-3">Expert Advice</h4>
+                <div className="bg-electric-blue/10 border-l-4 border-electric-blue p-4 rounded-r-2xl text-blue-100/90 italic leading-relaxed">
+                   "{report.advice}"
+                </div>
+              </div>
 
-              <div className="mt-6 flex gap-3">
-                <button className="px-4 py-2 rounded-md bg-amber-400 text-amber-900 font-semibold shadow-md" onClick={() => {/* show recommendations below */}}>
-                  View Recommended Routine
+              <div className="pt-4 flex gap-4">
+                <button className="flex-1 glow-button py-3 rounded-xl font-bold text-white">
+                  Get Routine
                 </button>
-                <button className="px-4 py-2 rounded-md border" onClick={() => { setReport(null); setImageFile(null); setStep(0); setAnswers({}); }}>
-                  Start Over
+                <button 
+                  className="px-6 py-3 border border-white/10 rounded-xl text-white hover:bg-white/5 transition-colors"
+                  onClick={() => { setReport(null); setImageFile(null); setStep(0); setAnswers({}); }}
+                >
+                  Reset
                 </button>
               </div>
 
-              <div className="mt-6">
+              <div className="pt-8 border-t border-white/10">
                 <ProductRecommendations profile={report} />
               </div>
 
-              {/* Interactive Skin Consultant Chat */}
-              <div className="mt-6">
-                <h5 className="text-md font-semibold mb-2">Interactive Skin Consultant</h5>
-                <div ref={chatRef} className="border rounded-xl p-3 bg-white/60 glass-card max-h-56 overflow-y-auto">
+              <div className="pt-8 border-t border-white/10">
+                <h5 className="text-lg font-bold text-white mb-4">Interactive Consultant</h5>
+                <div ref={chatRef} className="bg-white/5 border border-white/10 rounded-2xl p-4 max-h-56 overflow-y-auto space-y-4 mb-4">
                   {chatMessages.length === 0 && (
-                    <div className="text-sm text-gray-600">Ask a question about your routine or products, e.g., "Can I use this at night?"</div>
+                    <div className="text-sm text-blue-200/50 italic text-center py-4">
+                      Ask any question about your personalized routine...
+                    </div>
                   )}
                   {chatMessages.map((m, idx) => (
-                    <div key={idx} className={`my-2 flex ${m.sender === 'assistant' ? 'justify-start' : 'justify-end'}`}>
-                      <div className={`px-3 py-2 max-w-[78%] ${m.sender === 'assistant' ? 'glass-card' : 'bg-white/90 border'} rounded-xl`}>{m.text}</div>
+                    <div key={idx} className={`flex ${m.sender === 'assistant' ? 'justify-start' : 'justify-end'}`}>
+                      <div className={`px-4 py-2 rounded-2xl max-w-[85%] text-sm ${m.sender === 'assistant' ? 'bg-white/10 text-white' : 'bg-electric-blue text-white'}`}>
+                        {m.text}
+                      </div>
                     </div>
                   ))}
                   {isAssistantTyping && (
-                    <div className="my-2 flex justify-start">
-                      <div className="px-3 py-2 glass-card rounded-xl text-sm text-gray-600">Azzivone Specialist is typing…</div>
+                    <div className="flex justify-start">
+                      <div className="px-4 py-2 bg-white/5 rounded-2xl text-xs text-blue-300 animate-pulse">
+                        Azzivone Specialist is typing...
+                      </div>
                     </div>
                   )}
                 </div>
 
-                <form onSubmit={(e) => { e.preventDefault(); const f = new FormData(e.currentTarget as HTMLFormElement); const q = (f.get('q') as string) || ''; (e.currentTarget as HTMLFormElement).reset(); handleChatSubmit(q); }} className="mt-3 flex gap-3">
-                  <input name="q" placeholder="Ask the specialist…" className="flex-1 px-4 py-2 rounded-full border bg-white/70 focus:outline-none" />
-                  <button type="submit" className="px-4 py-2 bg-azzivone-gold text-white rounded-full">Send</button>
+                <form onSubmit={(e) => { e.preventDefault(); const f = new FormData(e.currentTarget as HTMLFormElement); const q = (f.get('q') as string) || ''; (e.currentTarget as HTMLFormElement).reset(); handleChatSubmit(q); }} className="flex gap-2">
+                  <input name="q" placeholder="Ask a question..." className="flex-1 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-blue-200/30 focus:outline-none focus:border-electric-blue/50 transition-colors" />
+                  <button type="submit" className="p-3 bg-electric-blue rounded-xl text-white hover:bg-electric-blue/80 transition-colors shadow-lg shadow-electric-blue/20">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </button>
                 </form>
               </div>
-
             </div>
           </motion.div>
         )}
-
       </motion.div>
     </div>
   );

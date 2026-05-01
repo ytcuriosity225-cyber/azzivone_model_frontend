@@ -7,13 +7,20 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'azzivone-green': '#004225',
-        'azzivone-gold': '#D4AF37',
+        'azzivone-navy': '#000814',
+        'azzivone-blue-deep': '#001d3d',
+        'azzivone-blue-mid': '#003566',
+        'electric-blue': '#00b4d8',
+        'electric-glow': '#90e0ef',
+      },
+      fontFamily: {
+        sans: ['Inter', 'Montserrat', 'sans-serif'],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "futuristic-blue": "linear-gradient(to bottom, #000814, #001d3d, #003566)",
       },
       animation: {
         'scan': 'scan 2s linear infinite',

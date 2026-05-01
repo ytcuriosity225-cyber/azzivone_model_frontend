@@ -34,16 +34,24 @@ export default function ProductRecommendations({ profile }: { profile: any }) {
   if (!products.length) return <div className="text-sm text-gray-600">No recommendations available.</div>;
 
   return (
-    <div>
-      <h5 className="text-md font-semibold">Recommended Products</h5>
-      <div className="mt-3 grid grid-cols-2 sm:grid-cols-3 gap-4">
+    <div className="space-y-4">
+      <h5 className="text-lg font-bold font-montserrat text-white">Recommended Products</h5>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {products.map((p) => (
-          <div key={p.id} className="glass-card p-3">
-            <img src={p.imageUrl} alt={p.name} className="w-full h-36 object-contain" />
-            <div className="mt-2">
-              <div className="font-medium text-sm">{p.name}</div>
-              <div className="text-xs text-gray-600">{p.brand} • {p.category}</div>
-              <div className="mt-2 text-sm font-semibold">PKR {p.price}</div>
+          <div key={p.id} className="glass-container p-4 rounded-2xl flex flex-col hover:border-electric-blue/40 transition-all group">
+            <div className="relative h-40 w-full mb-4 rounded-xl overflow-hidden bg-white/5 p-2">
+              <img src={p.imageUrl} alt={p.name} className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" />
+            </div>
+            <div className="flex-grow">
+              <div className="text-xs font-bold text-electric-blue uppercase tracking-widest mb-1">{p.brand}</div>
+              <div className="text-white font-bold text-sm line-clamp-1 mb-2">{p.name}</div>
+              <div className="text-blue-100/50 text-xs">{p.category}</div>
+            </div>
+            <div className="mt-4 pt-4 border-t border-white/5 flex items-center justify-between">
+              <div className="text-white font-bold">Rs. {p.price.toLocaleString()}</div>
+              <button className="px-3 py-1 bg-electric-blue/20 hover:bg-electric-blue text-white text-xs font-bold rounded-lg transition-all border border-electric-blue/30">
+                Shop
+              </button>
             </div>
           </div>
         ))}

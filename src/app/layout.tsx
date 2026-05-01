@@ -16,10 +16,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body className={`${inter.className} text-gray-900`} suppressHydrationWarning>
-        <div className="min-h-screen flex items-start justify-center py-12 px-4 sm:px-6 lg:px-8">
-          <div className="w-full max-w-5xl">{children}</div>
-        </div>
+      <body className={`${inter.className} text-white`} suppressHydrationWarning>
+        {children}
       </body>
     </html>
   );
