@@ -6,12 +6,16 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "convert-images": "node scripts/convert-images.js"
   },
   "dependencies": {
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.35"
+    "next": "14.2.35",
+    "framer-motion": "^10.12.6",
+    "fast-glob": "^3.2.12",
+    "sharp": "^0.32.4"
   },
   "devDependencies": {
     "typescript": "^5",

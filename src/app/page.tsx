@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import ChatModal from "@/components/ChatModal";
+import { fetchWithRetries } from "@/lib/fetchWithRetries";
 
 type Product = {
   id: number;
@@ -50,10 +52,14 @@ export default function Home() {
       try {
         const formData = new FormData();
         formData.append('file', file);
-        const response = await fetch('https://azzivone-api.onrender.com/predict', {
-          method: 'POST',
-          body: formData,
-        });
+        let response = null;
+        try {
+          response = await fetchWithRetries('https://azzivone-api.onrender.com/predict', { method: 'POST', body: formData }, 4, 900);
+        } catch (err) {
+          setDetectedConcern('Our specialist is preparing your report — please try again in a few seconds.');
+          setRecommendedProducts([]);
+          return;
+        }
         const data = await response.json();
         
         if (data.detected_concern) {
@@ -178,110 +184,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* AI Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-          <div className="bg-white rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl relative flex flex-col max-h-[90vh]">
-            <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-white sticky top-0 z-10">
-              <h3 className="text-xl font-bold text-azzivone-green">AI Skin Analysis</h3>
-              <button onClick={closeModal} className="text-gray-400 hover:text-gray-600 transition-colors">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-
-            <div className="p-8 overflow-y-auto flex-grow flex flex-col">
-              {!selectedImage ? (
-                <div 
-                  className="border-2 border-dashed border-gray-300 rounded-2xl p-12 text-center hover:border-azzivone-gold transition-colors cursor-pointer bg-gray-50"
-                  onClick={() => fileInputRef.current?.click()}
-                >
-                  <div className="w-20 h-20 bg-azzivone-gold/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <svg className="w-10 h-10 text-azzivone-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                    </svg>
-                  </div>
-                  <h4 className="text-lg font-bold text-gray-900 mb-2">Upload your photo</h4>
-                  <p className="text-sm text-gray-500 max-w-xs mx-auto">Ensure good lighting and no makeup for the best clinical accuracy.</p>
-                  <input 
-                    type="file" 
-                    accept="image/*" 
-                    className="hidden" 
-                    ref={fileInputRef} 
-                    onChange={handleImageUpload}
-                  />
-                </div>
-              ) : (
-                <div className="relative w-full max-w-md mx-auto aspect-[3/4] bg-black rounded-2xl overflow-hidden mb-8 shadow-inner">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={selectedImage} alt="Uploaded" className="object-cover w-full h-full opacity-90" />
-                  
-                  {isScanning && (
-                    <>
-                      <div className="absolute inset-0 bg-azzivone-green/20 mix-blend-overlay"></div>
-                      <div className="absolute top-0 w-full h-32 bg-gradient-to-b from-azzivone-gold/40 to-transparent animate-scan shadow-[0_4px_30px_rgba(212,175,55,0.5)] border-b-2 border-azzivone-gold"></div>
-                      <div className="absolute top-4 left-4 bg-black/60 backdrop-blur px-4 py-2 rounded-full flex items-center shadow-xl">
-                        <div className="w-4 h-4 mr-3 animate-spin border-2 border-azzivone-gold border-t-transparent rounded-full flex-shrink-0"></div>
-                        <span className="text-white text-xs font-semibold tracking-wider">
-                          {isSleepMode ? "Expert AI is waking up... Please wait a few seconds." : "Azzivone Clinical Scanner"}
-                        </span>
-                      </div>
-                    </>
-                  )}
-
-                  {scanComplete && (
-                    <div className="absolute top-4 left-4 bg-azzivone-green/80 backdrop-blur px-3 py-1.5 rounded-full flex items-center">
-                      <svg className="w-3 h-3 text-white mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span className="text-white text-xs font-semibold tracking-wider">ANALYSIS COMPLETE</span>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {scanComplete && (
-                <div className="animate-slide-up mt-4 transition-all duration-700 ease-in-out transform translate-y-0 opacity-100">
-                  {detectedConcern && (
-                    <div className="mb-8 text-center">
-                      <span className="inline-block px-4 py-1.5 rounded-full bg-azzivone-gold/10 text-azzivone-gold text-sm font-bold uppercase tracking-widest mb-3 border border-azzivone-gold/20 shadow-sm">Analysis Result</span>
-                      <h4 className="text-3xl md:text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-azzivone-green to-azzivone-gold capitalize drop-shadow-sm leading-tight px-4">{detectedConcern}</h4>
-                    </div>
-                  )}
-                  
-                  {recommendedProducts.length > 0 && (
-                    <>
-                      <h4 className="text-lg font-semibold text-gray-800 mb-4 text-center border-b border-gray-100 pb-2">Recommended Protocol</h4>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                        {recommendedProducts.map((product, idx) => (
-                          <div key={`rec-${product.id || idx}`} className="bg-white border border-gray-100 p-5 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group">
-                            <div className="relative h-32 w-full mb-4 bg-gray-50 rounded-xl flex items-center justify-center p-2 group-hover:scale-105 transition-transform duration-500">
-                              <Image src={product.imageUrl} alt={product.name} fill className="object-contain drop-shadow-md" />
-                            </div>
-                            <div className="flex-grow flex flex-col text-center">
-                              <p className="text-[10px] font-bold text-azzivone-gold uppercase mb-1 tracking-wider">{product.brand}</p>
-                              <h5 className="text-sm font-bold text-gray-900 line-clamp-2 mb-2 leading-tight">{product.name}</h5>
-                              <div className="mt-auto pt-3 border-t border-gray-50">
-                                <span className="font-bold text-azzivone-green text-sm">Rs. {product.price?.toLocaleString()}</span>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </>
-                  )}
-                  
-                  <div className="mt-8 text-center pt-2">
-                    <button onClick={closeModal} className="px-8 py-3 bg-azzivone-green text-white font-medium rounded-full hover:bg-opacity-90 transition-all duration-300 shadow-md shadow-azzivone-green/30 transform hover:-translate-y-1">
-                      Done
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
+        <ChatModal onClose={closeModal} />
       )}
     </main>
   );

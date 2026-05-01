@@ -1,27 +1,252 @@
 [
-  { "id": 1, "name": "COSRX RED RICE iNOSITOL Pore Clarifying Deep Cleanser", "brand": "COSRX", "price": 5040, "imageUrl": "/products/Thumb_RedRice_Inositol_DeepCleanser_800x1067_1_540x.webp", "category": "Cleanser", "skinType": "Oily / Combination", "concern": "Deep Cleansing / Pores" },
-  { "id": 2, "name": "COSRX RED RICE iNOSITOL Exfoliating Care Pore Serum", "brand": "COSRX", "price": 5544, "imageUrl": "/products/Thumb_RedRice_Inositol_Serum_800x1067_1cb5f547-d3ec-4d5b-bbd8-4d4c7700dd16_540x.webp", "category": "Serum", "skinType": "Oily / Combination", "concern": "Pores / Texture" },
-  { "id": 3, "name": "COSRX The 6 Peptide Skin Booster Serum", "brand": "COSRX", "price": 6300, "imageUrl": "/products/1_23a79a66-a967-4533-9e71-cd88b0c6efb2_540x.webp", "category": "Serum", "skinType": "All Skin Types", "concern": "Aging / Firming" },
-  { "id": 4, "name": "COSRX The Peptide Collagen Hydrogel Eye Patch", "brand": "COSRX", "price": 5796, "imageUrl": "/products/Peptide-eye-patch2___800x1067-_-_-jpg_540x.webp", "category": "Eye Patch", "skinType": "All Skin Types", "concern": "Fine Lines / Puffiness" },
-  { "id": 5, "name": "COSRX Advanced Snail Hydrogel Eye Patch", "brand": "COSRX", "price": 7840, "imageUrl": "/products/AnyConv.com__Snail-eye-patch2_800x1067_e8793905-5ab9-4172-a398-5d25b6cf39cc_540x.webp", "category": "Eye Patch", "skinType": "Dry / Sensitive", "concern": "Repair / Hydration" },
-  { "id": 6, "name": "COSRX The Retinol 0.3 Cream", "brand": "COSRX", "price": 7308, "imageUrl": "/products/Retinol03Cream_800x1067_c88d3441-5851-4a65-8438-a93bbfb4f86b_540x.webp", "category": "Cream", "skinType": "Aging Skin", "concern": "Wrinkles / Texture" },
-  { "id": 7, "name": "The Ordinary Niacinamide 10% + Zinc 1%", "brand": "The Ordinary", "price": 2795, "imageUrl": "/products/niacinamide-10-zinc-1_2.webp", "category": "Serum", "skinType": "Oily / Acne", "concern": "Oil Control / Acne" },
-  { "id": 8, "name": "The Ordinary Glycolic Acid 7% Toning Solution", "brand": "The Ordinary", "price": 5499, "imageUrl": "/products/glycolic-e1750093158873_1.webp", "category": "Toner", "skinType": "Dull / Textured", "concern": "Glow / Exfoliation" },
-  { "id": 9, "name": "The Ordinary Hyaluronic Acid 2% + B5", "brand": "The Ordinary", "price": 3599, "imageUrl": "/products/Hyaluronic-Acid-B5_2.webp", "category": "Serum", "skinType": "Dry Skin", "concern": "Hydration" },
-  { "id": 10, "name": "The Ordinary Salicylic Acid 2% Solution", "brand": "The Ordinary", "price": 3450, "imageUrl": "/products/The-Ordinary-Salicylic-Acid-2-Solution-30Ml.webp", "category": "Serum", "skinType": "Oily / Acne", "concern": "Acne / Pores" },
-  { "id": 11, "name": "The Ordinary Alpha Arbutin 2% + HA", "brand": "The Ordinary", "price": 3499, "imageUrl": "/products/rn-image_picker_lib_temp_f48f2729-f20a-4482-be23-a38e2ae38e5b.webp", "category": "Serum", "skinType": "Pigmented Skin", "concern": "Dark Spots" },
-  { "id": 12, "name": "CeraVe Acne Clay To Foam Cleanser", "brand": "CeraVe", "price": 5037, "imageUrl": "/products/clay-to-foam-cleanser_front.webp", "category": "Cleanser", "skinType": "Oily / Acne", "concern": "Breakouts / Oil" },
-  { "id": 13, "name": "CeraVe Acne Control Gel", "brand": "CeraVe", "price": 5877, "imageUrl": "/products/acne-control-gel_front.webp", "category": "Gel", "skinType": "Acne-Prone", "concern": "Pimples / Marks" },
-  { "id": 14, "name": "CeraVe Acne Control Cleanser", "brand": "CeraVe", "price": 5037, "imageUrl": "/products/acne-cleanser_front.webp", "category": "Cleanser", "skinType": "Oily Skin", "concern": "Acne / Pores" },
-  { "id": 15, "name": "Cetaphil Sheer Mineral Sunscreen SPF 30", "brand": "Cetaphil", "price": 4200, "imageUrl": "/products/spf30-legal.webp", "category": "Sunscreen", "skinType": "Sensitive Skin", "concern": "UV Protection" },
-  { "id": 16, "name": "Cetaphil Sheer Mineral Sunscreen Lotion SPF 50", "brand": "Cetaphil", "price": 5100, "imageUrl": "/products/SPF-50-Lotion-packshot.webp", "category": "Sunscreen", "skinType": "Sensitive Skin", "concern": "Daily Protection" },
-  { "id": 17, "name": "L-Snail Mucin Serum", "brand": "Azzivone", "price": 3799, "imageUrl": "/products/azzivone snail mucin serum.webp", "category": "Serum", "skinType": "All Skin Types", "concern": "Repair / Hydration" },
-  { "id": 18, "name": "Vince Rice Serum", "brand": "Vince", "price": 1690, "imageUrl": "/products/vince rice serum.webp", "category": "Serum", "skinType": "Dull Skin", "concern": "Brightening / Glow" },
-  { "id": 19, "name": "Vince Vitamin C Serum", "brand": "Vince", "price": 1490, "imageUrl": "/products/vitamin_c_serum_c4e968da-af3e-40f9-a585-90916febd032.webp", "category": "Serum", "skinType": "Pigmented / Dull", "concern": "Glow / Spots" },
-  { "id": 20, "name": "Neutrogena Hydro Boost Water Gel", "brand": "Neutrogena", "price": 3999, "imageUrl": "/products/NTG_Hydro_Boost_City_Shield_Water_Gel_with_Broad_Spectrum_SPF_25_EDI1.webp", "category": "Moisturizer", "skinType": "Dry / Combination", "concern": "Hydration" },
-  { "id": 21, "name": "Cetaphil Gentle Skin Cleanser", "brand": "Cetaphil", "price": 3250, "imageUrl": "/products/cetaphile gentle skin cleanser.webp", "category": "Cleanser", "skinType": "Sensitive / Dry", "concern": "Gentle Cleansing" },
-  { "id": 22, "name": "Minimalist Vitamin C 10% Serum", "brand": "Minimalist", "price": 2950, "imageUrl": "/products/VitaminC10_1200-1-minimalist.avif", "category": "Serum", "skinType": "Pigmented / Dull", "concern": "Brightening" },
-  { "id": 23, "name": "Minimalist Niacinamide 10% Serum", "brand": "Minimalist", "price": 2850, "imageUrl": "/products/niacinamide-10-zinc-1_2.webp", "category": "Serum", "skinType": "Oily / Acne", "concern": "Oil Control" },
-  { "id": 24, "name": "WB by Hemani Tea Tree Face Wash", "brand": "WB by Hemani", "price": 1250, "imageUrl": "/products/tea tree facewash by hemani.webp", "category": "Cleanser", "skinType": "Oily / Acne", "concern": "Acne / Oil" },
-  { "id": 25, "name": "Conatural Aloe Vera Gel", "brand": "Conatural", "price": 1450, "imageUrl": "/products/aloe_vera_gel.webp", "category": "Gel", "skinType": "Sensitive / Dry", "concern": "Soothing / Repair" }
+  {
+    "id": 1,
+    "name": "COSRX RED RICE iNOSITOL Pore Clarifying Deep Cleanser",
+    "brand": "COSRX",
+    "price": 5040,
+    "imageUrl": "/products/Thumb_RedRice_Inositol_DeepCleanser_800x1067_1_540x.webp",
+    "category": "Cleanser",
+    "skinType": "Oily / Combination",
+    "concern": "Deep Cleansing / Pores"
+  },
+  {
+    "id": 2,
+    "name": "COSRX RED RICE iNOSITOL Exfoliating Care Pore Serum",
+    "brand": "COSRX",
+    "price": 5544,
+    "imageUrl": "/products/Thumb_RedRice_Inositol_Serum_800x1067_1cb5f547-d3ec-4d5b-bbd8-4d4c7700dd16_540x.webp",
+    "category": "Serum",
+    "skinType": "Oily / Combination",
+    "concern": "Pores / Texture"
+  },
+  {
+    "id": 3,
+    "name": "COSRX The 6 Peptide Skin Booster Serum",
+    "brand": "COSRX",
+    "price": 6300,
+    "imageUrl": "/products/1_23a79a66-a967-4533-9e71-cd88b0c6efb2_540x.webp",
+    "category": "Serum",
+    "skinType": "All Skin Types",
+    "concern": "Aging / Firming"
+  },
+  {
+    "id": 4,
+    "name": "COSRX The Peptide Collagen Hydrogel Eye Patch",
+    "brand": "COSRX",
+    "price": 5796,
+    "imageUrl": "/products/Peptide-eye-patch2___800x1067-_-_-jpg_540x.webp",
+    "category": "Eye Patch",
+    "skinType": "All Skin Types",
+    "concern": "Fine Lines / Puffiness"
+  },
+  {
+    "id": 5,
+    "name": "COSRX Advanced Snail Hydrogel Eye Patch",
+    "brand": "COSRX",
+    "price": 7840,
+    "imageUrl": "/products/AnyConv.com__Snail-eye-patch2_800x1067_e8793905-5ab9-4172-a398-5d25b6cf39cc_540x.webp",
+    "category": "Eye Patch",
+    "skinType": "Dry / Sensitive",
+    "concern": "Repair / Hydration"
+  },
+  {
+    "id": 6,
+    "name": "COSRX The Retinol 0.3 Cream",
+    "brand": "COSRX",
+    "price": 7308,
+    "imageUrl": "/products/Retinol03Cream_800x1067_c88d3441-5851-4a65-8438-a93bbfb4f86b_540x.webp",
+    "category": "Cream",
+    "skinType": "Aging Skin",
+    "concern": "Wrinkles / Texture"
+  },
+  {
+    "id": 7,
+    "name": "The Ordinary Niacinamide 10% + Zinc 1%",
+    "brand": "The Ordinary",
+    "price": 2795,
+    "imageUrl": "/products/niacinamide-10-zinc-1_2.webp",
+    "category": "Serum",
+    "skinType": "Oily / Acne",
+    "concern": "Oil Control / Acne"
+  },
+  {
+    "id": 8,
+    "name": "The Ordinary Glycolic Acid 7% Toning Solution",
+    "brand": "The Ordinary",
+    "price": 5499,
+    "imageUrl": "/products/glycolic-e1750093158873_1.webp",
+    "category": "Toner",
+    "skinType": "Dull / Textured",
+    "concern": "Glow / Exfoliation"
+  },
+  {
+    "id": 9,
+    "name": "The Ordinary Hyaluronic Acid 2% + B5",
+    "brand": "The Ordinary",
+    "price": 3599,
+    "imageUrl": "/products/Hyaluronic-Acid-B5_2.webp",
+    "category": "Serum",
+    "skinType": "Dry Skin",
+    "concern": "Hydration"
+  },
+  {
+    "id": 10,
+    "name": "The Ordinary Salicylic Acid 2% Solution",
+    "brand": "The Ordinary",
+    "price": 3450,
+    "imageUrl": "/products/The-Ordinary-Salicylic-Acid-2-Solution-30Ml.webp",
+    "category": "Serum",
+    "skinType": "Oily / Acne",
+    "concern": "Acne / Pores"
+  },
+  {
+    "id": 11,
+    "name": "The Ordinary Alpha Arbutin 2% + HA",
+    "brand": "The Ordinary",
+    "price": 3499,
+    "imageUrl": "/products/rn-image_picker_lib_temp_f48f2729-f20a-4482-be23-a38e2ae38e5b.webp",
+    "category": "Serum",
+    "skinType": "Pigmented Skin",
+    "concern": "Dark Spots"
+  },
+  {
+    "id": 12,
+    "name": "CeraVe Acne Clay To Foam Cleanser",
+    "brand": "CeraVe",
+    "price": 5037,
+    "imageUrl": "/products/clay-to-foam-cleanser_front.webp",
+    "category": "Cleanser",
+    "skinType": "Oily / Acne",
+    "concern": "Breakouts / Oil"
+  },
+  {
+    "id": 13,
+    "name": "CeraVe Acne Control Gel",
+    "brand": "CeraVe",
+    "price": 5877,
+    "imageUrl": "/products/acne-control-gel_front.webp",
+    "category": "Gel",
+    "skinType": "Acne-Prone",
+    "concern": "Pimples / Marks"
+  },
+  {
+    "id": 14,
+    "name": "CeraVe Acne Control Cleanser",
+    "brand": "CeraVe",
+    "price": 5037,
+    "imageUrl": "/products/acne-cleanser_front.webp",
+    "category": "Cleanser",
+    "skinType": "Oily Skin",
+    "concern": "Acne / Pores"
+  },
+  {
+    "id": 15,
+    "name": "Cetaphil Sheer Mineral Sunscreen SPF 30",
+    "brand": "Cetaphil",
+    "price": 4200,
+    "imageUrl": "/products/spf30-legal.webp",
+    "category": "Sunscreen",
+    "skinType": "Sensitive Skin",
+    "concern": "UV Protection"
+  },
+  {
+    "id": 16,
+    "name": "Cetaphil Sheer Mineral Sunscreen Lotion SPF 50",
+    "brand": "Cetaphil",
+    "price": 5100,
+    "imageUrl": "/products/SPF-50-Lotion-packshot.webp",
+    "category": "Sunscreen",
+    "skinType": "Sensitive Skin",
+    "concern": "Daily Protection"
+  },
+  {
+    "id": 17,
+    "name": "L-Snail Mucin Serum",
+    "brand": "Azzivone",
+    "price": 3799,
+    "imageUrl": "/products/azzivone snail mucin serum.webp",
+    "category": "Serum",
+    "skinType": "All Skin Types",
+    "concern": "Repair / Hydration"
+  },
+  {
+    "id": 18,
+    "name": "Vince Rice Serum",
+    "brand": "Vince",
+    "price": 1690,
+    "imageUrl": "/products/vince rice serum.webp",
+    "category": "Serum",
+    "skinType": "Dull Skin",
+    "concern": "Brightening / Glow"
+  },
+  {
+    "id": 19,
+    "name": "Vince Vitamin C Serum",
+    "brand": "Vince",
+    "price": 1490,
+    "imageUrl": "/products/vitamin_c_serum_c4e968da-af3e-40f9-a585-90916febd032.webp",
+    "category": "Serum",
+    "skinType": "Pigmented / Dull",
+    "concern": "Glow / Spots"
+  },
+  {
+    "id": 20,
+    "name": "Neutrogena Hydro Boost Water Gel",
+    "brand": "Neutrogena",
+    "price": 3999,
+    "imageUrl": "/products/NTG_Hydro_Boost_City_Shield_Water_Gel_with_Broad_Spectrum_SPF_25_EDI1.webp",
+    "category": "Moisturizer",
+    "skinType": "Dry / Combination",
+    "concern": "Hydration"
+  },
+  {
+    "id": 21,
+    "name": "Cetaphil Gentle Skin Cleanser",
+    "brand": "Cetaphil",
+    "price": 3250,
+    "imageUrl": "/products/cetaphile gentle skin cleanser.webp",
+    "category": "Cleanser",
+    "skinType": "Sensitive / Dry",
+    "concern": "Gentle Cleansing"
+  },
+  {
+    "id": 22,
+    "name": "Minimalist Vitamin C 10% Serum",
+    "brand": "Minimalist",
+    "price": 2950,
+    "imageUrl": "/products/VitaminC10_1200-1-minimalist.webp",
+    "category": "Serum",
+    "skinType": "Pigmented / Dull",
+    "concern": "Brightening"
+  },
+  {
+    "id": 23,
+    "name": "Minimalist Niacinamide 10% Serum",
+    "brand": "Minimalist",
+    "price": 2850,
+    "imageUrl": "/products/niacinamide-10-zinc-1_2.webp",
+    "category": "Serum",
+    "skinType": "Oily / Acne",
+    "concern": "Oil Control"
+  },
+  {
+    "id": 24,
+    "name": "WB by Hemani Tea Tree Face Wash",
+    "brand": "WB by Hemani",
+    "price": 1250,
+    "imageUrl": "/products/tea tree facewash by hemani.webp",
+    "category": "Cleanser",
+    "skinType": "Oily / Acne",
+    "concern": "Acne / Oil"
+  },
+  {
+    "id": 25,
+    "name": "Conatural Aloe Vera Gel",
+    "brand": "Conatural",
+    "price": 1450,
+    "imageUrl": "/products/aloe_vera_gel.webp",
+    "category": "Gel",
+    "skinType": "Sensitive / Dry",
+    "concern": "Soothing / Repair"
+  }
 ]
