@@ -166,11 +166,11 @@ export default function AiConsultantPage() {
   return (
     <div className="flex h-screen bg-azzivone-navy overflow-hidden font-sans">
       {/* Sidebar - Sessions */}
-      <aside className="w-80 border-r border-white/10 flex-col hidden lg:flex bg-black/20 backdrop-blur-xl">
+      <aside className="w-80 border-r border-white/10 flex-col hidden lg:flex bg-black/20 backdrop-blur-xl shrink-0">
         <div className="p-6">
           <Link href="/" className="text-xl font-bold tracking-[0.3em] text-white block mb-8">AZZIVONE</Link>
-          <button onClick={() => window.location.reload()} className="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-white/10 text-white/70 hover:bg-white/5 transition-all mb-8">
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <button onClick={() => window.location.reload()} className="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-white/10 text-white/70 hover:bg-white/5 transition-all mb-8 text-sm">
+            <svg className="w-5 h-5 text-electric-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
             </svg>
             New Analysis
@@ -183,75 +183,62 @@ export default function AiConsultantPage() {
                 <span>Dermatology Scan #012</span>
                 <span className="w-2 h-2 bg-electric-blue rounded-full"></span>
               </div>
-              <div className="px-4 py-3 rounded-lg hover:bg-white/5 text-white/40 text-sm transition-colors cursor-not-allowed italic">
-                Scan #011 (Expiring)
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div className="mt-auto p-6 border-t border-white/10">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-electric-blue to-purple-600 flex items-center justify-center text-white font-bold">G</div>
-            <div>
-              <div className="text-white text-sm font-bold">Guest User</div>
-              <div className="text-white/40 text-[10px] uppercase tracking-wider">Premium Access</div>
             </div>
           </div>
         </div>
       </aside>
 
       {/* Main Chat Area */}
-      <main className="flex-1 flex flex-col relative">
+      <main className="flex-1 flex flex-col relative w-full">
         {/* Header */}
-        <header className="h-20 border-b border-white/5 flex items-center justify-between px-8 bg-black/10 backdrop-blur-md z-30">
-          <div className="flex items-center gap-4">
-             <Link href="/" className="lg:hidden text-lg font-bold tracking-widest text-white">AZZIVONE</Link>
-             <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
-             <span className="text-white/60 text-sm font-medium tracking-wide">Live AI Consultant</span>
+        <header className="h-16 md:h-20 border-b border-white/5 flex items-center justify-between px-4 md:px-8 bg-black/10 backdrop-blur-md z-30 shrink-0">
+          <div className="flex items-center gap-3 md:gap-4">
+             <Link href="/" className="p-2 -ml-2 text-white/60 hover:text-white transition-colors">
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+             </Link>
+             <div className="flex items-center gap-2">
+               <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
+               <span className="text-white font-bold text-sm md:text-base tracking-wide">Live AI Consultant</span>
+             </div>
           </div>
-          <div className="flex items-center gap-4">
-            <button className="text-white/40 hover:text-white transition-colors">
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-              </svg>
-            </button>
-          </div>
+          <Link href="/" className="text-white text-xs font-bold uppercase tracking-widest hover:text-electric-blue transition-colors hidden sm:block">Exit</Link>
         </header>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-8 scroll-smooth custom-scrollbar">
-          <div className="max-w-4xl mx-auto space-y-8">
+        <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 md:space-y-8 scroll-smooth custom-scrollbar">
+          <div className="max-w-4xl mx-auto space-y-6 md:space-y-8">
             <AnimatePresence>
               {messages.map((msg) => (
                 <motion.div
                   key={msg.id}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
                 >
-                  <div className={`max-w-[85%] ${msg.sender === "user" ? "ml-auto" : ""}`}>
+                  <div className={`max-w-[90%] md:max-w-[85%] ${msg.sender === "user" ? "ml-auto" : ""}`}>
                     {msg.type === "text" && (
-                      <div className={`p-4 rounded-2xl text-sm leading-relaxed ${msg.sender === "user" ? "bg-electric-blue text-white shadow-lg shadow-electric-blue/20" : "glass-container text-blue-100"}`}>
+                      <div className={`p-4 rounded-2xl text-[13px] md:text-sm leading-relaxed ${msg.sender === "user" ? "bg-electric-blue text-white shadow-lg shadow-electric-blue/20" : "glass-container text-blue-100"}`}>
                         {msg.content}
                       </div>
                     )}
 
                     {msg.type === "image" && (
                       <div className="rounded-2xl overflow-hidden border-2 border-electric-blue/40 shadow-2xl">
-                        <img src={msg.imageUrl} alt="Skin Upload" className="max-w-sm w-full object-cover" />
+                        <img src={msg.imageUrl} alt="Skin Upload" className="max-w-full sm:max-w-sm w-full object-cover" />
                       </div>
                     )}
 
                     {msg.type === "questions" && (
                       <div className="space-y-4">
-                        <div className="glass-container p-4 rounded-2xl text-blue-100 text-sm">{msg.content}</div>
-                        <div className="grid grid-cols-2 gap-3">
+                        <div className="glass-container p-4 rounded-2xl text-blue-100 text-[13px] md:text-sm">{msg.content}</div>
+                        <div className="grid grid-cols-2 gap-2 md:gap-3">
                           {msg.options?.map((opt) => (
                             <button
                               key={opt}
                               onClick={() => handleOptionClick(opt)}
-                              className="px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white hover:bg-electric-blue/20 hover:border-electric-blue/40 transition-all text-sm font-medium"
+                              className="px-3 py-2.5 md:px-4 md:py-3 bg-white/5 border border-white/10 rounded-xl text-white hover:bg-electric-blue/20 hover:border-electric-blue/40 transition-all text-xs md:text-sm font-medium"
                             >
                               {opt}
                             </button>
@@ -261,39 +248,39 @@ export default function AiConsultantPage() {
                     )}
 
                     {msg.type === "analysis" && (
-                      <div className="flex items-center gap-4 glass-container p-6 rounded-2xl border border-electric-blue/20">
-                        <div className="w-10 h-10 rounded-full border-2 border-t-electric-blue border-white/5 animate-spin"></div>
-                        <div className="text-blue-100 text-sm italic">{msg.content}</div>
+                      <div className="flex items-center gap-4 glass-container p-4 md:p-6 rounded-2xl border border-electric-blue/20">
+                        <div className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-t-electric-blue border-white/5 animate-spin"></div>
+                        <div className="text-blue-100 text-[13px] md:text-sm italic">{msg.content}</div>
                       </div>
                     )}
 
                     {msg.type === "report" && (
-                      <div className="space-y-8">
-                        <div className="glass-container p-8 rounded-3xl border border-electric-blue/20">
-                          <h4 className="text-xl font-bold text-white mb-6 font-montserrat">Dermatological Analysis Report</h4>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                      <div className="space-y-6 md:space-y-8">
+                        <div className="glass-container p-6 md:p-8 rounded-3xl border border-electric-blue/20">
+                          <h4 className="text-lg md:text-xl font-bold text-white mb-6 font-montserrat">Dermatological Analysis Report</h4>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 md:mb-8">
                              <div className="bg-white/5 p-4 rounded-xl border border-white/5">
-                                <span className="text-[10px] text-blue-300 uppercase font-bold tracking-widest block mb-1">Profile</span>
-                                <div className="text-white text-sm font-bold">{msg.data.profile.skinType} • {msg.data.profile.exposure}</div>
+                                <span className="text-[9px] text-blue-300 uppercase font-bold tracking-widest block mb-1">Profile</span>
+                                <div className="text-white text-xs md:text-sm font-bold">{msg.data.profile.skinType} • {msg.data.profile.exposure}</div>
                              </div>
                              <div className="bg-white/5 p-4 rounded-xl border border-white/5">
-                                <span className="text-[10px] text-blue-300 uppercase font-bold tracking-widest block mb-1">Status</span>
-                                <div className="text-white text-sm font-bold text-green-400">Clinical Validated</div>
+                                <span className="text-[9px] text-blue-300 uppercase font-bold tracking-widest block mb-1">Status</span>
+                                <div className="text-white text-xs md:text-sm font-bold text-green-400">Clinical Validated</div>
                              </div>
                           </div>
                           
-                          <div className="space-y-4 mb-8">
-                            <span className="text-xs font-bold text-white/60">Detected Constraints:</span>
+                          <div className="space-y-4 mb-6 md:mb-8">
+                            <span className="text-[10px] font-bold text-white/60">Detected Constraints:</span>
                             <div className="flex flex-wrap gap-2">
                               {msg.data.concerns.map((c: string, i: number) => (
-                                <span key={i} className="px-3 py-1 bg-electric-blue/10 border border-electric-blue/20 rounded-full text-electric-blue text-[10px] font-bold uppercase tracking-wider">{c}</span>
+                                <span key={i} className="px-3 py-1 bg-electric-blue/10 border border-electric-blue/20 rounded-full text-electric-blue text-[9px] font-bold uppercase tracking-wider">{c}</span>
                               ))}
                             </div>
                           </div>
 
                           <div className="space-y-2">
-                             <span className="text-xs font-bold text-white/60">AI Specialist Advice:</span>
-                             <div className="text-blue-100/80 text-sm leading-relaxed border-l-2 border-electric-blue pl-4 py-1 italic">
+                             <span className="text-[10px] font-bold text-white/60">AI Specialist Advice:</span>
+                             <div className="text-blue-100/80 text-[13px] md:text-sm leading-relaxed border-l-2 border-electric-blue pl-4 py-1 italic">
                                 {msg.data.advice}
                              </div>
                           </div>
@@ -309,7 +296,7 @@ export default function AiConsultantPage() {
 
             {isTyping && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start">
-                <div className="glass-container px-6 py-4 rounded-2xl flex items-center gap-2">
+                <div className="glass-container px-5 py-3 md:px-6 md:py-4 rounded-2xl flex items-center gap-2">
                   <div className="w-1.5 h-1.5 bg-electric-blue rounded-full animate-bounce"></div>
                   <div className="w-1.5 h-1.5 bg-electric-blue rounded-full animate-bounce [animation-delay:0.2s]"></div>
                   <div className="w-1.5 h-1.5 bg-electric-blue rounded-full animate-bounce [animation-delay:0.4s]"></div>
@@ -321,13 +308,13 @@ export default function AiConsultantPage() {
         </div>
 
         {/* Input Bar */}
-        <div className="p-6 bg-gradient-to-t from-azzivone-navy to-transparent relative z-30">
-          <div className="max-w-4xl mx-auto flex items-end gap-3 glass-container p-2 rounded-[2rem] border-white/10 shadow-2xl focus-within:border-electric-blue/30 transition-all">
+        <div className="p-4 md:p-6 bg-gradient-to-t from-azzivone-navy to-transparent relative z-30 shrink-0">
+          <div className="max-w-4xl mx-auto flex items-end gap-2 md:gap-3 glass-container p-1 md:p-2 rounded-[1.5rem] md:rounded-[2rem] border-white/10 shadow-2xl focus-within:border-electric-blue/30 transition-all">
             <button 
               onClick={() => fileInputRef.current?.click()}
-              className="p-4 text-blue-300 hover:text-white hover:bg-white/5 rounded-full transition-all group"
+              className="p-3 md:p-4 text-blue-300 hover:text-white hover:bg-white/5 rounded-full transition-all group"
             >
-              <svg className="w-6 h-6 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-5 h-5 md:w-6 md:h-6 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
@@ -347,22 +334,22 @@ export default function AiConsultantPage() {
                 type="text"
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
-                placeholder={currentStep >= 0 ? "Analyzing... Select an option above" : "Message AI Consultant..."}
+                placeholder={currentStep >= 0 ? "Analying..." : "Message Consultant..."}
                 disabled={currentStep >= 0}
-                className="w-full bg-transparent border-none focus:ring-0 text-white placeholder:text-white/20 py-4 px-2"
+                className="w-full bg-transparent border-none focus:ring-0 text-white placeholder:text-white/20 py-3 md:py-4 px-2 text-[13px] md:text-sm"
               />
               <button 
                 type="submit"
-                className={`p-4 rounded-full transition-all ${inputText.trim() ? "text-electric-blue hover:bg-electric-blue/10" : "text-white/10"}`}
+                className={`p-3 md:p-4 rounded-full transition-all ${inputText.trim() ? "text-electric-blue hover:bg-electric-blue/10" : "text-white/10"}`}
                 disabled={!inputText.trim() || currentStep >= 0}
               >
-                <svg className="w-6 h-6 rotate-90" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-5 h-5 md:w-6 md:h-6 rotate-90" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
                 </svg>
               </button>
             </form>
           </div>
-          <div className="text-[10px] text-center mt-3 text-white/20 uppercase tracking-[0.2em] font-bold">Powered by Azzivone Neural Engine Version 4.0.1</div>
+          <div className="text-[8px] md:text-[10px] text-center mt-3 text-white/20 uppercase tracking-[0.2em] font-bold">Neural Engine v4.0.1</div>
         </div>
       </main>
     </div>
