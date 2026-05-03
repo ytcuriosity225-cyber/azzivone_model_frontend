@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,7 +17,8 @@ type Product = {
   concern?: string;
 };
 
-export default function CheckoutPage() {
+// Create a separate component for the checkout logic to be wrapped in Suspense
+function CheckoutContent() {
   const searchParams = useSearchParams();
   const productId = searchParams.get("id");
   const [product, setProduct] = useState<Product | null>(null);
@@ -160,5 +161,18 @@ export default function CheckoutPage() {
         )}
       </AnimatePresence>
     </main>
+  );
+}
+
+// Main page component wrapped in Suspense
+export default function CheckoutPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-azzivone-navy flex items-center justify-center">
+        <div className="w-12 h-12 border-4 border-electric-blue/20 border-t-electric-blue rounded-full animate-spin"></div>
+      </div>
+    }>
+      <CheckoutContent />
+    </Suspense>
   );
 }
